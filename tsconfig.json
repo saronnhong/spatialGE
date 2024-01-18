@@ -21,7 +21,8 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "types": ["d3-hexbin"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
