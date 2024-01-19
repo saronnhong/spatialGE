@@ -1,23 +1,34 @@
 <div class="container">
-    <h1>spatialGE</h1>
-    <div class="overlayDiv" >
-        <div *ngIf="displayImage">
-            <img class="overlayPlots"
-                src="assets/GSM6433599_117D_tissue_hires_image.png" style="width: 400px; height: 400px;" [style.opacity]="imageOpacityValue">
+    <div class="overlayDiv">
+        <div *ngIf="displayImage" class="imageContainer">
+            <div *ngIf="displayCrop">
+                <image-cropper></image-cropper>
+            </div>
+            <div *ngIf="!displayCrop">
+                <img class="overlayPlots" src="assets/GSM6433599_117D_tissue_hires_image.png"
+                    style="width: 400px; height: 400px;" [style.opacity]="imageOpacityValue">
+            </div>
+
+            <!-- <lib-ngx-image-zoom [thumbImage]="imageUrl" [fullImage]="imageUrl" zoomMode="click" [enableScrollZoom]="true"
+            [scrollStepSize]="2"
+            >
+            </lib-ngx-image-zoom> -->
         </div>
         <div #scatter id="scatter" [class]="overlayImage ? 'overlayPlots' : 'displayPlotSideBySide'"
-            [style.opacity]="displayPlot ? plotOpacityValue : 0" ></div>
+            [style.opacity]="displayPlot ? plotOpacityValue : 0"></div>
     </div>
     <div class="slider">
         <label id="radio-group-axis">Plot Opacity: <span class="displayValue"> {{plotOpacityValue}}</span></label>
         {{0}} %
-        <mat-slider min="0" max="1" step=".1" [(ngModel)]="plotOpacityValue" (input)="updatePlotOpacity(plotOpacityValue)">
+        <mat-slider min="0" max="1" step=".1" [(ngModel)]="plotOpacityValue"
+            (input)="updatePlotOpacity(plotOpacityValue)">
         </mat-slider>
         {{100}} %
         <br>
         <label id="radio-group-axis">Image Opacity: <span class="displayValue"> {{imageOpacityValue}}</span></label>
         {{0}} %
-        <mat-slider min="0" max="1" step=".1" [(ngModel)]="imageOpacityValue" (input)="updateImageOpacity(imageOpacityValue)">
+        <mat-slider min="0" max="1" step=".1" [(ngModel)]="imageOpacityValue"
+            (input)="updateImageOpacity(imageOpacityValue)">
         </mat-slider>
         {{100}} %
         <br>
@@ -26,6 +37,8 @@
         <mat-slide-toggle [(ngModel)]="displayPlot">Display Plot</mat-slide-toggle>
         <br>
         <mat-slide-toggle [(ngModel)]="displayImage">Display Image</mat-slide-toggle>
+        <br>
+        <mat-slide-toggle [(ngModel)]="displayCrop">Display Crop</mat-slide-toggle>
     </div>
 
 </div>

@@ -9,10 +9,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { ImageCropperComponent } from './image-cropper/image-cropper.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ImageCropperComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +28,11 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     BrowserAnimationsModule,
     MatSliderModule,
     FormsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    NgxImageZoomModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

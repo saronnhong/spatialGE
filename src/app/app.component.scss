@@ -1,0 +1,48 @@
+.overlayDiv,
+.sideBySideDiv {
+    display: flex;
+}
+
+#radio-group-axis {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.displayValue {
+    font-weight: 100;
+}
+
+mat-slider {
+    width: 250px;
+}
+
+.overlayPlots {
+    position: absolute;
+    top: 0;
+    left: 10;
+    background-color: rgb(139, 25, 25, 0.3);
+}
+
+.displayPlotSideBySide {
+    position: absolute;
+    top: 0;
+    left: 500px;
+}
+
+.slider {
+    position: absolute;
+    top: 500px;
+    left: 100;
+}
+
+::ng-deep .ngxImageZoomThumbnail {
+    width: 400px;
+}
+
+#image {
+    display: block;
+
+    /* This rule is very important, please don't ignore this */
+    max-width: 100%;
+}
