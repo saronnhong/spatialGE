@@ -2,17 +2,14 @@
     <div class="overlayDiv">
         <div *ngIf="displayImage" class="imageContainer">
             <div *ngIf="displayCrop">
-                <image-cropper></image-cropper>
+                <image-cropper [imageUrl]="parentImageUrl" (childImageUrl)="receiveCroppedImageUrl($event)"
+                    (displayCrop)="receivedDisplayCrop($event)"></image-cropper>
             </div>
             <div *ngIf="!displayCrop">
-                <img class="overlayPlots" src="assets/GSM6433599_117D_tissue_hires_image.png"
-                    style="width: 400px; height: 400px;" [style.opacity]="imageOpacityValue">
+                <img class="overlayPlots"
+                    [src]="parentImageUrl"
+                    style="height: 400px;" [style.opacity]="imageOpacityValue">
             </div>
-
-            <!-- <lib-ngx-image-zoom [thumbImage]="imageUrl" [fullImage]="imageUrl" zoomMode="click" [enableScrollZoom]="true"
-            [scrollStepSize]="2"
-            >
-            </lib-ngx-image-zoom> -->
         </div>
         <div #scatter id="scatter" [class]="overlayImage ? 'overlayPlots' : 'displayPlotSideBySide'"
             [style.opacity]="displayPlot ? plotOpacityValue : 0"></div>
@@ -39,6 +36,29 @@
         <mat-slide-toggle [(ngModel)]="displayImage">Display Image</mat-slide-toggle>
         <br>
         <mat-slide-toggle [(ngModel)]="displayCrop">Display Crop</mat-slide-toggle>
+        <br>
+        <br>
+        <label id="radio-group-axis">Plot Color: </label>
+        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+            [(ngModel)]="selectedColor" (change)="onColorChange()">
+            <div *ngFor="let plotColor of colors" class="radio-container">
+                <mat-radio-button class="example-radio-button" [value]="plotColor">{{plotColor}}</mat-radio-button>
+            </div>
+        </mat-radio-group>
+        <br>
+        <br>
+        <label id="radio-group-axis">Scale Factor: <span class="displayValue"> ({{scaleFactor}})</span></label>
+        <div class="inputContainer">
+            <mat-form-field class="example-form-field container" appearance="outline">
+                <mat-label>Scale Factor</mat-label>
+                <input matInput type="search" name="search" [(ngModel)]="scaleFactorVal"
+                    (keyup.enter)="setScaleFactor()" class="smallerInput">
+                <button *ngIf="scaleFactorVal" matSuffix mat-icon-button aria-label="Clear"
+                    (click)="scaleFactorVal = ''">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+            <button mat-flat-button color="primary" class="searchButton" (click)="setScaleFactor()">Submit</button>
+        </div>
     </div>
-
 </div>

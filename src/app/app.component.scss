@@ -21,7 +21,7 @@ mat-slider {
     position: absolute;
     top: 0;
     left: 10;
-    background-color: rgb(139, 25, 25, 0.3);
+    background-color: rgb(139, 25, 25, 0.4);
 }
 
 .displayPlotSideBySide {
@@ -36,9 +36,9 @@ mat-slider {
     left: 100;
 }
 
-::ng-deep .ngxImageZoomThumbnail {
-    width: 400px;
-}
+// ::ng-deep .ngxImageZoomThumbnail {
+//     width: 400px;
+// }
 
 #image {
     display: block;
@@ -46,3 +46,30 @@ mat-slider {
     /* This rule is very important, please don't ignore this */
     max-width: 100%;
 }
+
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+    margin-left: 16px;
+}
+
+.example-radio-group {
+    display: flex;
+}
+
+.radio-container {
+    margin-right: 10px; /* Adjust margin as needed */
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.searchButton {
+    margin: 8px;
+    height: 40px;
+    padding: 0px;
+}
+
+.smaller-input {
+    width: 500px; /* Adjust the width as needed */
+  }

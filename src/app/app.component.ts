@@ -10,8 +10,6 @@ import { ReadCSVService } from './read-csv.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-
-  title = 'spatialge_testapp';
   containerId = '#scatter';
   scatterPlotData = [
     {
@@ -34,11 +32,17 @@ export class AppComponent implements OnInit {
   plotOpacityValue = 1
   imageOpacityValue = .5
 
-  overlayImage = false;
-  displayPlot = true;
-  displayImage = true;
+  overlayImage: boolean = false;
+  displayPlot: boolean = true;
+  displayImage: boolean = true;
 
-  displayCrop = false;
+  displayCrop: boolean = false;
+
+  selectedColor: string = 'Red';
+  colors: string[] = ['Red', 'Green']
+
+  scaleFactorVal = '';
+  parentImageUrl = 'assets/GSM6433599_117D_tissue_hires_image.png'
 
 
   constructor(private csvService: ReadCSVService) { }
@@ -47,7 +51,22 @@ export class AppComponent implements OnInit {
     this.readCSV();
   }
 
+  receiveCroppedImageUrl(url: string) {
+    this.parentImageUrl = url;
+  }
 
+  receivedDisplayCrop(value: boolean) {
+    this.displayCrop = value
+  }
+
+  setScaleFactor() {
+    this.scaleFactor = parseFloat(this.scaleFactorVal)
+    this.createScatterPlot()
+  }
+
+  onColorChange() {
+    this.createScatterPlot()
+  }
 
   updatePlotOpacity(value: number): void {
     this.plotOpacityValue = value;
@@ -62,7 +81,6 @@ export class AppComponent implements OnInit {
       (data: string) => {
         // Process the CSV data here
         let parsedData = this.parseTSV(data)
-        console.log("parsedData:  ", parsedData)
         for (let obj of parsedData) {
           const parsedX = parseInt(obj['xpos']);
           const parsedY = parseInt(obj['ypos']);
@@ -145,21 +163,17 @@ export class AppComponent implements OnInit {
 
     const color = d3.scaleLinear<string>()
       .domain([0, this.totalCountsMax])
-      .range(["rgba(0, 0, 0, 0)", "black"]);
+      // .range(["rgba(0, 0, 0, 0)", "red"]);
+      .range(["rgba(0, 0, 0, 0)", this.selectedColor]);
 
     var x = d3.scaleLinear()
       .domain([this.xMin, this.xMax * (1 + this.scaleFactor)])
       .range([0, width]);
-    // svg.append("g")
-    //   .attr("transform", "translate(0," + height + ")")
-    //   .call(d3.axisBottom(x));
 
     // Add Y axis
     var y = d3.scaleLinear()
       .domain([this.yMin, this.yMax])
       .range([height, 0]);
-    // svg.append("g")
-    //   .call(d3.axisLeft(y));
 
     // Add dots
     svg.append('g')

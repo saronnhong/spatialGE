@@ -1,7 +1,14 @@
-<div>
-    <img id="image" [src]="imageUrl" style="width: 400px; height: 400px;">
+<!-- <div *ngIf="!showCroppedImage">
+    <img id="image" [src]="imageUrl" style="height: 400px;">
 </div>
-<!-- <img [src]="croppedImage" style="width: 400px; height: 400px;"> -->
+<div *ngIf="showCroppedImage">
+    <img id="image" [src]="imageUrl" style="height: 400px;">
+</div> -->
+<div>
+    <img id="image" [src]="imageUrl" style="height: 400px;">
+</div>
+
+
 <button mat-flat-button color="primary" class="custom-button" matTooltip="Zoom In" (click)="zoomIn()">
     <mat-icon>zoom_in</mat-icon>
 </button>
@@ -41,7 +48,10 @@
     (click)="setAspectRatio(null)">
     Free
 </button>
-<button mat-flat-button color="primary" class="custom-button" matTooltip="Download Image"
+<!-- <button mat-flat-button color="primary" class="custom-button" matTooltip="Download Image"
     (click)="downloadCroppedImage()">
     <mat-icon>download</mat-icon>
+</button> -->
+<button mat-flat-button color="primary" class="custom-button" matTooltip="Crop" (click)="onCrop()">
+    <mat-icon>crop</mat-icon>
 </button>

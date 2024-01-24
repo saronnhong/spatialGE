@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, Output, EventEmitter, Input } from '@angular/core';
 import Cropper from 'cropperjs';
 
 @Component({
@@ -7,9 +7,11 @@ import Cropper from 'cropperjs';
   styleUrls: ['./image-cropper.component.css']
 })
 export class ImageCropperComponent implements AfterViewInit {
-  imageUrl = 'assets/GSM6433599_117D_tissue_hires_image.png';
   croppedImage = '';
   cropper: any
+  @Output() childImageUrl = new EventEmitter<string>();
+  @Output() displayCrop = new EventEmitter<boolean>();
+  @Input() imageUrl = ''
 
   constructor() { }
 
@@ -22,15 +24,8 @@ export class ImageCropperComponent implements AfterViewInit {
     if (image) {
       this.cropper = new Cropper(image, {
         zoomable: true,
-        scalable: true,
-        // aspectRatio: 16 / 9,
-
-        // crop: () => {
-        //   const canvas = cropper.getCroppedCanvas();
-        //   this.croppedImage = canvas.toDataURL("image/png")
-        // }
+        scalable: true
       });
-      console.log("crop: ", this.croppedImage)
     } else {
       console.error('Image element not found');
     }
@@ -84,6 +79,16 @@ export class ImageCropperComponent implements AfterViewInit {
       downloadLink.href = dataUrl;
       downloadLink.download = 'cropped_image.png';
       downloadLink.click();
+    }
+  }
+
+  onCrop() {
+    if (this.cropper) {
+      const croppedCanvas = this.cropper.getCroppedCanvas();
+      this.imageUrl = croppedCanvas.toDataURL('image/png');
+
+      this.childImageUrl.emit(this.imageUrl);
+      this.displayCrop.emit(false)
     }
   }
 }
